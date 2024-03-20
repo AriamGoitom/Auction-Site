@@ -1,16 +1,16 @@
-import React from 'react'
-import Auktioner from './components/Auctions'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import './App.css'
+import React from "react";
+import Auktioner from "./components/Auctions";
+import { BrowserRouter as Switch, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/" exact component={Auktioner} />
-        <Route path="/auktion/:id" component={AuktionDetaljer} />
-      </Switch>
-    </Router>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={Auktioner} />
+      </Routes>
+    </>
   );
 }
 
