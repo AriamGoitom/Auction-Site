@@ -3,6 +3,7 @@ import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 import { HiMenuAlt3 } from "react-icons/hi";
 
 import { NavLink } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -12,14 +13,7 @@ const Navbar = () => {
       <div className="bg-[#d1fae5] mx-auto w-full flex justify-between items-center p-4">
         <h1 className="text-2xl sm:text-3xl lg:text-4xl px-2">AcutionsSaite</h1>
         {/*SearchBar */}
-        <div className=" border-b-[1px] border-black flex items-center px-2 w-[200px] sm:w-[w-400px] lg:w-[500px]">
-          <AiOutlineSearch size={25} />
-          <input
-            className="bg-transparent p-2 w-full focus:outline-none"
-            type="text"
-            placeholder="Sök produkter"
-          />
-        </div>
+        <SearchBar icon={<AiOutlineSearch size={25} />} />
 
         <ul className="hidden md:flex gap-6">
           <li>
