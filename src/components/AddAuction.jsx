@@ -1,99 +1,82 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-const AddAuction = () => {
-  const [auctionName, setAuctionName] = useState("");
-  const [auctionDescription, setAuctionDescription] = useState("");
-  const [auctionPrice, setAuctionPrice] = useState("");
-  const [createdBy, setCreatedBy] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+const AddAuctionForm = () => {
+  const [auction, setAuction] = useState({
+    Title: '',
+    Description: '',
+    StartDate: '',
+    EndDate: '',
+    GroupCode: 'l6m',
+    StartingPrice: 0,
+    CreatedBy: ''
+  });
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setAuction(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const response = await fetch(
-        "https://auctioneer.azurewebsites.net/auction/l6m",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            Title: auctionName,
-            Description: auctionDescription,
-            /* StartDate:
-            EndDate: */
-            GroupCode: "l6m",
-            StartingPrice: auctionPrice,
-            CreatedBy: createdBy,
-            
-          }),
-        }
-      );
+      const response = await fetch('https://auctioneer.azurewebsites.net/auction/l6m', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(auction)
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to add auction");
+        throw new Error('Failed to add auction');
       }
 
-      setSuccessMessage("Auction added successfully");
-      setErrorMessage("");
-      setAuctionName("");
-      setAuctionDescription("");
-      setAuctionPrice("");
+      setAuction({
+        Title: '',
+        Description: '',
+        StartDate: '',
+        EndDate: '',
+        GroupCode: 'l6m',
+        StartingPrice: 0,
+        CreatedBy: ''
+      });
+
+      alert('Auction added successfully!');
     } catch (error) {
-      setErrorMessage("Failed to add auction");
-      setSuccessMessage("");
+      console.error('Error:', error.message);
+      alert('Failed to add auction');
     }
   };
+
   return (
     <div>
-      <h2>Add Auction</h2>
-      <form onSubmit={handleFormSubmit}>
-        <div>
-          <label htmlFor="auctionName">Auction Name:</label>
-          <input
-            type="text"
-            id="auctionName"
-            value={auctionName}
-            onChange={(e) => setAuctionName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="auctionDescription">Auction Description:</label>
-          <textarea
-            id="auctionDescription"
-            value={auctionDescription}
-            onChange={(e) => setAuctionDescription(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="auctionPrice">Auction Price:</label>
-          <input
-            type="number"
-            id="auctionPrice"
-            value={auctionPrice}
-            onChange={(e) => setAuctionPrice(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="createdBy">Created By:</label>
-          <input
-            type="text"
-            id="createdBy"
-            value={createdBy}
-            onChange={(e) => setCreatedBy(e.target.value)}
-            required
-          />
-        </div>
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-        {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
+      <h2>Add New Auction</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Title:</label>
+        <input type="text" name="Title" value={auction.Title} onChange={handleChange} required />
+        
+        <label>Description:</label>
+        <input type="text" name="Description" value={auction.Description} onChange={handleChange} required />
+        
+        <label>Start Date:</label>
+        <input type="datetime-local" name="StartDate" value={auction.StartDate} onChange={handleChange} required />
+        
+        <label>End Date:</label>
+        <input type="datetime-local" name="EndDate" value={auction.EndDate} onChange={handleChange} required />
+        
+        <label>Starting Price:</label>
+        <input type="number" name="StartingPrice" value={auction.StartingPrice} onChange={handleChange} required />
+        
+        <label>Created By:</label>
+        <input type="text" name="CreatedBy" value={auction.CreatedBy} onChange={handleChange} required />
+        
         <button type="submit">Add Auction</button>
       </form>
     </div>
   );
 };
 
-export default AddAuction;
+export default AddAuctionForm;
