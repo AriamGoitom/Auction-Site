@@ -1,13 +1,17 @@
-import React from "react";
-import { AiOutlineSearch } from "react-icons/ai";
+import React, { useState } from "react";
+import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
+import { HiMenuAlt3 } from "react-icons/hi";
+
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
+
   return (
     <div>
-      <div className="mx-auto w-full flex justify-between items-center p-4">
+      <div className="bg-[#d1fae5] mx-auto w-full flex justify-between items-center p-4">
         <h1 className="text-2xl sm:text-3xl lg:text-4xl px-2">AcutionsSaite</h1>
-
+        {/*SearchBar */}
         <div className=" border-b-[1px] border-black flex items-center px-2 w-[200px] sm:w-[w-400px] lg:w-[500px]">
           <AiOutlineSearch size={25} />
           <input
@@ -31,6 +35,23 @@ const Navbar = () => {
             <NavLink to="">Avslutade</NavLink>
           </li>
         </ul>
+        <button
+          className="block md:hidden text-x1"
+          onClick={() => setOpen((prev) => !prev)}
+        >
+          {open ? <AiOutlineClose /> : <HiMenuAlt3 />}
+        </button>
+      </div>
+      {/*Mobile menu */}
+      <div
+        className={`${
+          open ? "flex" : "hidden"
+        } bg-[#d1fae5] flex-col w-full items-center px-4 pt-16 pb-10 gap-6 text-[14px]`}
+      >
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="">Lägg till</NavLink>
+        <NavLink to="">Pågående</NavLink>
+        <NavLink to="">Avslutade</NavLink>
       </div>
     </div>
   );
