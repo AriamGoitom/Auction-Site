@@ -1,19 +1,17 @@
-import React from "react";
-import Auktioner from "./components/Auctions";
-import { Route, Routes } from "react-router-dom";
-import "./App.css";
-import AddAuction from "./components/AddAuction";
+import React from 'react'
+import Auctions from './components/Auctions'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import AuctionsDetails from './components/AuctionsDetails';
+import './App.css'
 
 function App() {
   return (
-    <>
-      <AddAuction />
+    <Router>
       <Routes>
-        <Route path="/" exact component={Auktioner} />
-        {/* TODO: Lägg till AddAuction som en Route sen */}
-        {/* <Route path="/auktion/:id" component={AuktionDetaljer} /> */}
+        <Route path="/" exact element={<Auctions />} />
+        <Route path="/auktion/:id" element={<AuctionsDetails />} />
       </Routes>
-    </>
+    </Router>
   );
 }
 
