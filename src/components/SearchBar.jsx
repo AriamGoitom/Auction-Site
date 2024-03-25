@@ -1,5 +1,4 @@
-{
-  /*import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const SearchBar = ({ icon }) => {
   const [loading, setLoading] = useState(true);
@@ -76,5 +75,3 @@ const SearchBar = ({ icon }) => {
 };
 
 export default SearchBar;
-*/
-}
