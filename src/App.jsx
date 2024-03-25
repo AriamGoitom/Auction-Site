@@ -1,14 +1,15 @@
 import React from "react";
-import Auktioner from "./components/Auctions";
-import { Routes, Route } from "react-router-dom";
+import Auctions from "./components/Auctions";
+import { Route, Routes } from "react-router-dom";
+import AuctionsDetails from "./components/Auctionsdetails";
 import Navbar from "./components/Navbar";
-
 function App() {
   return (
     <>
       <Navbar />
+      <Auctions />
       <Routes>
-        <Route path="/" element={Auktioner} />
+        <Route path="/auktion/:id" element={<AuctionsDetails />} />
       </Routes>
     </>
   );
