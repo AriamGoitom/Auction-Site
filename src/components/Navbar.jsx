@@ -35,6 +35,7 @@ const Navbar = () => {
           {open ? <AiOutlineClose /> : <HiMenuAlt3 />}
         </button>
       </div>
+
       {/*Mobile menu */}
       <div
         className={`${

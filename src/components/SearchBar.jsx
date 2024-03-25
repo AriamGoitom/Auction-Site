@@ -6,19 +6,18 @@ const SearchBar = ({ icon, auctions }) => {
   const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
-    // Filtrera auktioner baserat på användarens inmatning
+    // Filter auctions based on user input
     const filteredAuctions = auctions.filter((item) => {
       return item.Title.toLowerCase().includes(input.toLowerCase());
     });
 
-    // Uppdatera tillståndet med de filtrerade auktionerna
+    // Update the state with the filtered auctions
     setFilteredData(filteredAuctions);
   }, [auctions, input]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Nollställ sökfältet
     setInput("");
   };
 
@@ -28,7 +27,7 @@ const SearchBar = ({ icon, auctions }) => {
         <span className="mr-2">{icon}</span>
         <form onSubmit={handleSubmit}>
           <input
-            className="bg-transparent p-2 w-full focus:outline-none"
+            className="bg-transparent p-2 w-full sm:w-[450px] focus:outline-none"
             type="text"
             placeholder="Sök auktioner"
             onChange={(e) => setInput(e.target.value)}
@@ -37,7 +36,7 @@ const SearchBar = ({ icon, auctions }) => {
         </form>
       </div>
 
-      {/* Rendera den filtrerade datan endast om sökfältet inte är tomt */}
+      {/* search results*/}
       {input.trim() !== "" && (
         <div>
           {filteredData.map((item) => (
