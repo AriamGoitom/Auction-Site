@@ -1,6 +1,6 @@
 import React from "react";
 import Auktioner from "./components/Auctions";
-import { BrowserRouter as Switch, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 
 function App() {
