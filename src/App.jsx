@@ -7,8 +7,8 @@ function App() {
   return (
     <>
       <Navbar />
-      <Auctions />
       <Routes>
+        <Route path="/" element={<Auctions />} />
         <Route path="/auktion/:id" element={<AuctionsDetails />} />
       </Routes>
     </>

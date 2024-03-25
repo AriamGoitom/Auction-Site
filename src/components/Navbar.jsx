@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 import { HiMenuAlt3 } from "react-icons/hi";
-import { NavLink } from "react-router-dom";
-//import SearchBar from "./SearchBar";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
     <div>
-      <div className="bg-[#e1fcee] mx-auto w-full flex justify-between items-center p-4 fixed z-10">
-        <h1 className="text-xl sm:text-3xl lg:text-4xl px-2">Auctions</h1>
-
-        {/*<SearchBar icon={<AiOutlineSearch size={25} />} />*/}
-
+      <div className="bg-[#e1fcee] mx-auto w-full flex justify-between items-center p-4">
+        <div>
+          <Link to="/">
+            <h1 className="text-xl sm:text-3xl lg:text-4xl px-2">Auctions</h1>
+          </Link>
+        </div>
         <ul className="hidden md:flex gap-6">
           <li>
             <NavLink to="/">Home</NavLink>
@@ -28,7 +28,6 @@ const Navbar = () => {
             <NavLink to="/completed">Avslutade</NavLink>
           </li>
         </ul>
-
         <button
           className="block md:hidden text-x1"
           onClick={() => setOpen((prev) => !prev)}

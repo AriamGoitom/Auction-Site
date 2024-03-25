@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const Auctions = () => {
   const [auctions, setAuctions] = useState([]);
@@ -19,6 +21,9 @@ const Auctions = () => {
 
   return (
     <div>
+      <div className="h-full flex items-center justify-center">
+        <SearchBar icon={<AiOutlineSearch size={25} />} auctions={auctions} />
+      </div>
       <h1>Auctions</h1>
       <ul>
         {auctions.map((auction) => (
