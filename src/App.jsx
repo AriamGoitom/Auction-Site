@@ -1,7 +1,7 @@
 import React from "react";
 import Auctions from "./components/Auctions";
 import { Route, Routes } from "react-router-dom";
-import AuctionsDetails from "./components/Auctionsdetails";
+import AuctionDetails from "./components/AuctionDetails";
 import "./App.css";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
     <>
       <Auctions />
       <Routes>
-        <Route path="/auktion/:id" element={<AuctionsDetails />} />
+        <Route path="/auktion/:id" element={<AuctionDetails />} />
       </Routes>
     </>
   );
