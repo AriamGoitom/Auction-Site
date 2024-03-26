@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-const AddAuctionForm = () => {
+const AddAuction = () => {
   const [auction, setAuction] = useState({
     Title: "",
     Description: "",
@@ -55,7 +56,7 @@ const AddAuctionForm = () => {
   };
 
   return (
-    <div name={add}>
+    <Link to={"/add"}>
       <h2>Add New Auction</h2>
       <form onSubmit={handleSubmit}>
         <label>Title:</label>
@@ -114,8 +115,8 @@ const AddAuctionForm = () => {
 
         <button type="submit">Add Auction</button>
       </form>
-    </div>
+    </Link>
   );
 };
 
-export default AddAuctionForm;
+export default AddAuction;
