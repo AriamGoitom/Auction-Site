@@ -55,7 +55,7 @@ const AddAuctionForm = () => {
   };
 
   return (
-    <div>
+    <div name={add}>
       <h2>Add New Auction</h2>
       <form onSubmit={handleSubmit}>
         <label>Title:</label>
