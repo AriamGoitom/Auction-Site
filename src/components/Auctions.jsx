@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react'; /* React Hooks (useEffect and useState) are imported to manage state and lifecycle methods in functional components. */
-import { Link } from 'react-router-dom';            /* Link is imported from React-router to enable navigation between different pages in a React application. */
+import React, { useEffect, useState } from "react";
+import SearchBar from "./SearchBar";
+// import { Link } from "react-router-dom";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const Auctions = () => {                            /* This defines a functional component named Auctions. */
   const [auctions, setAuctions] = useState([]);     /* a state auctions is created with an empty array as its initial value. setAuctions is a function used to update the value of the auctions state. */
 
   useEffect(() => {                                 /* Using the useEffect hook to make an API call to fetch auctions. The useEffect hook is used to perform asynchronous operations, in this case, an HTTP request to an API to fetch auctions. When the component is first rendered, the fetchAuctions function will run, and the auctions state will be updated with the data returned from the API. */
     const fetchAuctions = async () => {
-      const response = await fetch('https://auctioneer.azurewebsites.net/auction/l6m');
+      const response = await fetch(
+        "https://auctioneer.azurewebsites.net/auction/l6m"
+      );
+
       const data = await response.json();
       setAuctions(data);
     };
@@ -16,6 +21,9 @@ const Auctions = () => {                            /* This defines a functional
 
   return (                                            /* Rendering auctions in the list. Auctions are rendered in a <ul> list with each auction as an <li> element. For each auction, its title, starting price, start date, end date, created by, and bid are displayed. The map method is used to iterate over each auction in the auctions array and generate JSX for each auction. */
     <div>
+      <div className="h-full flex items-center justify-center">
+        <SearchBar icon={<AiOutlineSearch size={25} />} auctions={auctions} />
+      </div>
       <h1>Auctions</h1>
       <ul>
       {auctions.map((auction) => (
