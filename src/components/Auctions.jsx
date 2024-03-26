@@ -30,11 +30,11 @@ const Auctions = () => {
         <SearchBar icon={<AiOutlineSearch size={25} />} auctions={auctions} />
       </div>
       <div className="h-full">
-        <h1 className="font-semibold text-2xl px-8 mt-14">Auctions</h1>
+        <h1 className="font-semibold text-4xl px-8 mt-14">Current Auctions</h1>
         <ul className="w-full px-8 flex flex-col mt-10 sm:flex-wrap sm:flex-row item-center gap-14">
           {auctions.map((auction) => (
             <li key={auction.AuctionID}>
-              <h2 className="font-semibold">{auction.Title}</h2>
+              <h2 className="font-semibold text-2xl">{auction.Title}</h2>
               <p>Pris: {auction.StartingPrice}</p>
               <p>Startdatum: {auction.StartDate}</p>
               <p>Slutdatum: {auction.EndDate}</p>
