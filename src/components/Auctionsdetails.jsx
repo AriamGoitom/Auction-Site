@@ -1,7 +1,8 @@
 const AuctionsDetails = () => {
-return (
-    <>Hej Ariam!</>
-
-)
-}
-export default AuctionsDetails
+  return (
+    <>
+      <p>Hallå</p>
+    </>
+  );
+};
+export default AuctionsDetails;
