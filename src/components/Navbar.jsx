@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { Link, NavLink } from "react-router-dom";
 
@@ -22,9 +22,6 @@ const Navbar = () => {
             <NavLink to="/add">Lägg till</NavLink>
           </li>
           <li>
-            <NavLink to="/ongoing">Pågående</NavLink>
-          </li>
-          <li>
             <NavLink to="/completed">Avslutade</NavLink>
           </li>
         </ul>
@@ -44,7 +41,6 @@ const Navbar = () => {
       >
         <NavLink to="/">Home</NavLink>
         <NavLink to="">Lägg till</NavLink>
-        <NavLink to="">Pågående</NavLink>
         <NavLink to="">Avslutade</NavLink>
       </div>
     </div>
