@@ -28,12 +28,12 @@ const AuctionDetails = ({ auctions, bids }) => {
       {JSON.stringify(bids)}
       {auctionById ? (
         <div>
-          <h2>{auctionById.Title}</h2>
+          {/* <h2>{auctionById.Title}</h2>
           <p>Price: {auctionById.StartingPrice}</p>
           <p>Start Date: {auctionById.StartDate}</p>
           <p>End Date: {auctionById.EndDate}</p>
           <p>Created By: {auctionById.CreatedBy}</p>
-          <p>Bid: {auctionById.bud}</p>
+          <p>Bid: {auctionById.bud}</p> */}
         </div>
       ) : (
         <p>No auction has been chosen, try again</p>
