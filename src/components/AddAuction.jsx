@@ -56,8 +56,8 @@ const AddAuction = () => {
   };
 
   return (
-  /*   <Link to={'/add'}> */
-      <div>
+    /*   <Link to={'/add'}> */
+    <div>
       <h2>Add New Auction</h2>
       <form onSubmit={handleSubmit}>
         <label>Title:</label>
@@ -116,8 +116,8 @@ const AddAuction = () => {
 
         <button type="submit">Add Auction</button>
       </form>
-      </div>
-   /*  </Link> */
+    </div>
+    /*  </Link> */
   );
 };
 
