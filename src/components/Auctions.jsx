@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";             /* In this section, you import necessary components and dependencies for your React component. These include React, useEffect hook, SearchBar component, Link component from react-router-dom, and an icon component AiOutlineSearch from react-icons/ai. */
 import SearchBar from "./SearchBar";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 
-const Auctions = () => {
-  /* This defines a functional component named Auctions. */
-  const [auctions, setAuctions] = useState(
-    []
-  ); /* a state auctions is created with an empty array as its initial value. setAuctions is a function used to update the value of the auctions state. */
+const Auctions = ({auctions, setAuctions}) => {       /* This defines a functional component named Auctions. It takes in two props: auctions (which represents the array of auctions) and setAuctions (which is a function to update the array of auctions). */
 
-  useEffect(() => {
-    /* Using the useEffect hook to make an API call to fetch auctions. The useEffect hook is used to perform asynchronous operations, in this case, an HTTP request to an API to fetch auctions. When the component is first rendered, the fetchAuctions function will run, and the auctions state will be updated with the data returned from the API. */
+  useEffect(() => {                                   /* Using the useEffect hook to make an API call to fetch auctions. The useEffect hook is used to perform asynchronous operations, in this case, an HTTP request to an API to fetch auctions. When the component is first rendered, the fetchAuctions function will run, and the auctions state will be updated with the data returned from the API. */
     const fetchAuctions = async () => {
       const response = await fetch(
         "https://auctioneer.azurewebsites.net/auction/l6m"
@@ -23,8 +18,7 @@ const Auctions = () => {
     fetchAuctions();
   }, []);
 
-  return (
-    /* Rendering auctions in the list. Auctions are rendered in a <ul> list with each auction as an <li> element. For each auction, its title, starting price, start date, end date, created by, and bid are displayed. The map method is used to iterate over each auction in the auctions array and generate JSX for each auction. */
+  return (                                            /* Rendering auctions in the list. Auctions are rendered in a <ul> list with each auction as an <li> element. For each auction, its title, starting price, start date, end date, created by, and bid are displayed. Additionally, you provide a link to the individual auction details using the Link component from react-router-dom. The map method is used to iterate over each auction in the auctions array and generate JSX for each auction. */
     <div>
       <div className="h-full flex items-center justify-center">
         <SearchBar icon={<AiOutlineSearch size={25} />} auctions={auctions} />
@@ -34,13 +28,10 @@ const Auctions = () => {
         <ul className="w-full px-8 flex flex-col mt-10 sm:flex-wrap sm:flex-row item-center gap-14">
           {auctions.map((auction) => (
             <li key={auction.AuctionID}>
+              <Link to={`/auktion/${auction.AuctionID}`} key={auction.AuctionID}>
               <h2 className="font-semibold text-2xl">{auction.Title}</h2>
               <p>Pris: {auction.StartingPrice}</p>
-              <p>Startdatum: {auction.StartDate}</p>
-              <p>Slutdatum: {auction.EndDate}</p>
-              <p>Skapad av: {auction.CreatedBy}</p>
-              <p>Bud: {auction.bud}</p>
-              {/* Lägg till fler egenskaper om det behövs */}
+              </Link>
             </li>
           ))}
         </ul>
@@ -49,4 +40,4 @@ const Auctions = () => {
   );
 };
 
-export default Auctions;
+export default Auctions;                   /* This export the Auctions component to make it available for use in other parts of your application. */
