@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-const BidAuction = ({ auction, onBidPlaced }) => {
+const BidAuction = ({ auction, onBidPlaced, bids, setBids }) => {
   const [bidAmount, setBidAmount] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [bids, setBids] = useState(null);
   const [bidderName, setBidderName] = useState("");
-  const [successMessage, setSuccessMessage] = useState("")
-  
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleBidChange = (e) => {
     setBidAmount(e.target.value);
@@ -43,7 +41,7 @@ const BidAuction = ({ auction, onBidPlaced }) => {
       return;
     }
     if (!bidderName.trim()) {
-      setErrorMessage('Please enter your name.');
+      setErrorMessage("Please enter your name.");
       return;
     }
     if (bidAmount <= getHighestBid()) {
@@ -72,12 +70,10 @@ const BidAuction = ({ auction, onBidPlaced }) => {
         onBidPlaced(data); // Update parent component with the new bid
         setBidderName("");
         setBidAmount("");
-        setSuccessMessage('Bid placed successfully.');
+        setSuccessMessage("Bid placed successfully.");
         setTimeout(() => {
-          setSuccessMessage('Bid placed successfully.');
+          setSuccessMessage("Bid placed successfully.");
         }, 3000);
-
-      
       } else {
         const data = await response.json();
         setErrorMessage(data.message || "Failed to place bid.");
@@ -85,6 +81,26 @@ const BidAuction = ({ auction, onBidPlaced }) => {
     } catch (error) {
       console.error("Error placing bid:", error);
       setErrorMessage("Failed to place bid. Please try again later.");
+    }
+  };
+
+  const handleDeleteAuction = async () => {
+    try {
+      const response = await fetch(
+        `https://auctioneer.azurewebsites.net/auction/l6m/${auction.AuctionID}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (response.ok) {
+        // Handle successful deletion
+      } else {
+        const data = await response.json();
+        setErrorMessage(data.message || "Failed to delete auction.");
+      }
+    } catch (error) {
+      console.error("Error deleting auction:", error);
+      setErrorMessage("Failed to delete auction. Please try again later.");
     }
   };
 
@@ -119,6 +135,20 @@ const BidAuction = ({ auction, onBidPlaced }) => {
         <button type="submit">Place Bid</button>
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       </form>
+      {bids && bids.length > 0 ? (
+        <>
+          <h1>Budhistorik:</h1>
+          <ul>
+            {bids.map((bid, index) => (
+              <li key={index}>
+                Bidder: {bid.Bidder}, Amount: {bid.Amount}
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <button onClick={handleDeleteAuction}>Delete Auction</button>
+      )}
     </div>
   );
 };
