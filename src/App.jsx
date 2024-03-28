@@ -9,13 +9,27 @@ function App() {
   const [auctions, setAuctions] = useState(
     []
   ); /* a state auctions is created with an empty array as its initial value. setAuctions is a function used to update the value of the auctions state. */
+  const [bids, setBids] = useState(null);
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Auctions setAuctions={setAuctions} auctions={auctions} />} />
-        <Route path="/auktion/:id" element={<AuctionDetails auctions={auctions} />} />
-        <Route path="/add" element={<AddAuction/>}/>
+        <Route
+          path="/"
+          element={
+            <Auctions
+              bids={bids}
+              setBids={setBids}
+              setAuctions={setAuctions}
+              auctions={auctions}
+            />
+          }
+        />
+        <Route
+          path="/auktion/:id"
+          element={<AuctionDetails bids={bids} auctions={auctions} />}
+        />
+        <Route path="/add" element={<AddAuction />} />
       </Routes>
     </>
   );
