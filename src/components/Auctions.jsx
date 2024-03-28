@@ -1,10 +1,17 @@
-import React, { useEffect } from "react";             /* In this section, you import necessary components and dependencies for your React component. These include React, useEffect hook, SearchBar component, Link component from react-router-dom, and an icon component AiOutlineSearch from react-icons/ai. */
+import React, { useEffect, useState } from "react";             /* In this section, you import necessary components and dependencies for your React component. These include React, useEffect hook, SearchBar component, Link component from react-router-dom, and an icon component AiOutlineSearch from react-icons/ai. */
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import BidAuction from "./BidAuction";
 
-const Auctions = ({auctions, setAuctions}) => {       /* This defines a functional component named Auctions. It takes in two props: auctions (which represents the array of auctions) and setAuctions (which is a function to update the array of auctions). */
+const Auctions = () => { 
+  /* This defines a functional component named Auctions. It takes in two props: auctions (which represents the array of auctions) and setAuctions (which is a function to update the array of auctions). */
+  
+  const [auctions, setAuctions] = useState(
+    []
+  );
+
+  
   const [selectedAuction, setSelectedAuction] = useState(null);
 
   useEffect(() => {                                   /* Using the useEffect hook to make an API call to fetch auctions. The useEffect hook is used to perform asynchronous operations, in this case, an HTTP request to an API to fetch auctions. When the component is first rendered, the fetchAuctions function will run, and the auctions state will be updated with the data returned from the API. */
@@ -48,10 +55,10 @@ const Auctions = ({auctions, setAuctions}) => {       /* This defines a function
         <ul className="w-full px-8 flex flex-col mt-10 sm:flex-wrap sm:flex-row item-center gap-14">
           {auctions.map((auction) => (
             <li key={auction.AuctionID} onClick={() => handleAuctionClick(auction)}>
-              <Link to={`/auktion/${auction.AuctionID}`} key={auction.AuctionID}>
+            {/* <Link to={`/auktion/${auction.AuctionID}`} key={auction.AuctionID}> */}
                 <h2 className="font-semibold text-2xl">{auction.Title}</h2>
                 <p>Pris: {auction.StartingPrice}</p>
-              </Link>
+              {/* </Link> */}
               {/* Lägg till fler egenskaper om det behövs */}
             </li>
           ))}
