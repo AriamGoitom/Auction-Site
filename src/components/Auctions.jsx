@@ -52,20 +52,25 @@ const Auctions = ({ bids, setBids, auctions, setAuctions }) => {
       <div className="h-full">
         <h1 className="font-semibold text-4xl px-8 mt-14">Current Auctions</h1>
         <ul className="w-full px-8 flex flex-col mt-10 sm:flex-wrap sm:flex-row item-center gap-14">
-          {auctions.map((auction) => (
-            <li
-              key={auction.AuctionID}
-              onClick={() => handleAuctionClick(auction)}
-            >
-              {/* <Link to={`/auktion/${auction.AuctionID}`} key={auction.AuctionID}> */}
-              <h2 className="font-semibold text-2xl">{auction.Title}</h2>
-              <p>Pris: {auction.StartingPrice}</p>
-              {/* </Link> */}
-              {/* Lägg till fler egenskaper om det behövs */}
+        {auctions.map((auction) => (
+            <li key={auction.AuctionID} onClick={() => handleAuctionClick(auction)}>
+            {/* <Link to={`/auktion/${auction.AuctionID}`} key={auction.AuctionID}> */}
+                <h2 className="font-semibold text-2xl">{auction.Title}</h2>
+                <p>Pris: {auction.StartingPrice}</p>
+                <p>Start Date: {auction.StartDate}</p>
+                <p>End Date: {auction.EndDate}</p>
+                <p>Created By: {auction.CreatedBy}</p>
+                <p>Bid: {auction.bud}</p>
+              
+                {bids && bids.length > 0 && (
+                  <ul>
+                    {bids.map((bid, index) => (
+                      <li key={index}>Bid {index + 1}: {bid.amount}</li>
+                    ))}
+                  </ul>
+                )}
             </li>
           ))}
-          {/* TODO: Ändra så att rätt auction skickas här - onClick per AuctionID, eller liknande */}
-          {/* <BidAuction auction={auctions[1]} /> */}
           {selectedAuction && (
             <BidAuction
               bids={bids}
