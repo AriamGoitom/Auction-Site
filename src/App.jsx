@@ -13,9 +13,12 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Auctions setAuctions={setAuctions} auctions={auctions} />} />
-        <Route path="/auktion/:id" element={<AuctionDetails auctions={auctions} />} />
-        <Route path="/add" element={<AddAuction/>}/>
+        <Route
+          path="/"
+          element={<Auctions setAuctions={setAuctions} auctions={auctions} />}
+        />
+        {/* <Route path="/auktion/:id" element={<AuctionDetails auctions={auctions} />} /> */}
+        <Route path="/add" element={<AddAuction />} />
       </Routes>
     </>
   );
