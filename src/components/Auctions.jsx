@@ -10,6 +10,8 @@ import BidAuction from "./BidAuction";
 const Auctions = ({ bids, setBids, auctions, setAuctions }) => {
   /* This defines a functional component named Auctions. It takes in two props: auctions (which represents the array of auctions) and setAuctions (which is a function to update the array of auctions). */
   const [selectedAuction, setSelectedAuction] = useState(null);
+  const [filteredData, setFilteredData] = useState([]);
+  const [input, setInput] = useState("");
 
   useEffect(() => {
     /* Using the useEffect hook to make an API call to fetch auctions. The useEffect hook is used to perform asynchronous operations, in this case, an HTTP request to an API to fetch auctions. When the component is first rendered, the fetchAuctions function will run, and the auctions state will be updated with the data returned from the API. */
@@ -24,6 +26,16 @@ const Auctions = ({ bids, setBids, auctions, setAuctions }) => {
 
     fetchAuctions();
   }, []);
+
+  useEffect(() => {
+    // Filter auctions based on user input
+    const filteredAuctions = auctions.filter((item) => {
+      return item.Title.toLowerCase().includes(input.toLowerCase());
+    });
+
+    // Update the state with the filtered auctions
+    setFilteredData(filteredAuctions);
+  }, [auctions, input]);
 
   const handleBidPlaced = (bid) => {
     // Update auctions array with the new bid
@@ -47,28 +59,39 @@ const Auctions = ({ bids, setBids, auctions, setAuctions }) => {
     /* Rendering auctions in the list. Auctions are rendered in a <ul> list with each auction as an <li> element. For each auction, its title, starting price, start date, end date, created by, and bid are displayed. Additionally, you provide a link to the individual auction details using the Link component from react-router-dom. The map method is used to iterate over each auction in the auctions array and generate JSX for each auction. */
     <div>
       <div className="h-full flex items-center justify-center">
-        <SearchBar icon={<AiOutlineSearch size={25} />} auctions={auctions} />
+        <SearchBar
+          icon={<AiOutlineSearch size={25} />}
+          auctions={auctions}
+          setFilteredData={setFilteredData}
+          input={input}
+          setInput={setInput}
+        />
       </div>
       <div className="h-full">
         <h1 className="font-semibold text-4xl px-8 mt-14">Current Auctions</h1>
         <ul className="w-full px-8 flex flex-col mt-10 sm:flex-wrap sm:flex-row item-center gap-14">
-        {auctions.map((auction) => (
-            <li key={auction.AuctionID} onClick={() => handleAuctionClick(auction)}>
-            {/* <Link to={`/auktion/${auction.AuctionID}`} key={auction.AuctionID}> */}
-                <h2 className="font-semibold text-2xl">{auction.Title}</h2>
-                <p>Pris: {auction.StartingPrice}</p>
-                <p>Start Date: {auction.StartDate}</p>
-                <p>End Date: {auction.EndDate}</p>
-                <p>Created By: {auction.CreatedBy}</p>
-                <p>Bid: {auction.bud}</p>
-              
-                {bids && bids.length > 0 && (
-                  <ul>
-                    {bids.map((bid, index) => (
-                      <li key={index}>Bid {index + 1}: {bid.amount}</li>
-                    ))}
-                  </ul>
-                )}
+          {filteredData.map((auction) => (
+            <li
+              key={auction.AuctionID}
+              onClick={() => handleAuctionClick(auction)}
+            >
+              {/* <Link to={`/auktion/${auction.AuctionID}`} key={auction.AuctionID}> */}
+              <h2 className="font-semibold text-2xl">{auction.Title}</h2>
+              <p>Pris: {auction.StartingPrice}</p>
+              <p>Start Date: {auction.StartDate}</p>
+              <p>End Date: {auction.EndDate}</p>
+              <p>Created By: {auction.CreatedBy}</p>
+              <p>Bid: {auction.bud}</p>
+
+              {bids && bids.length > 0 && (
+                <ul>
+                  {bids.map((bid, index) => (
+                    <li key={index}>
+                      Bid {index + 1}: {bid.amount}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </li>
           ))}
           {selectedAuction && (
