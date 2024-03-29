@@ -24,9 +24,6 @@ const Navbar = () => {
           <li>
             <NavLink to="/completed">Avslutade</NavLink>
           </li>
-          <li>
-            <NavLink to="/auktion/41">SebbeTest</NavLink>
-          </li>
         </ul>
         <button
           className="block md:hidden text-x1"
