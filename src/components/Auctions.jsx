@@ -10,8 +10,7 @@ import BidAuction from "./BidAuction";
 const Auctions = ({ bids, setBids, auctions, setAuctions }) => {
   /* This defines a functional component named Auctions. It takes in two props: auctions (which represents the array of auctions) and setAuctions (which is a function to update the array of auctions). */
   const [selectedAuction, setSelectedAuction] = useState(null);
-  const [filteredData, setFilteredData] = useState([]);
-  const [input, setInput] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     /* Using the useEffect hook to make an API call to fetch auctions. The useEffect hook is used to perform asynchronous operations, in this case, an HTTP request to an API to fetch auctions. When the component is first rendered, the fetchAuctions function will run, and the auctions state will be updated with the data returned from the API. */
@@ -20,22 +19,25 @@ const Auctions = ({ bids, setBids, auctions, setAuctions }) => {
         "https://auctioneer.azurewebsites.net/auction/l6m"
       );
 
-      const data = await response.json();
-      setAuctions(data);
+      const auctionsJson = await response.json();
+      // Filter out expired auctions
+      const activeExpiredAuctions = auctionsJson.map((auction) => ({
+        ...auction,
+        expired: new Date(auction.EndDate) <= new Date(),
+      }));
+      setAuctions(activeExpiredAuctions);
     };
 
     fetchAuctions();
   }, []);
 
-  useEffect(() => {
-    // Filter auctions based on user input
-    const filteredAuctions = auctions.filter((item) => {
-      return item.Title.toLowerCase().includes(input.toLowerCase());
-    });
+  const filterAuctions = (query) => {
+    setSearchQuery(query);
+  };
 
-    // Update the state with the filtered auctions
-    setFilteredData(filteredAuctions);
-  }, [auctions, input]);
+  const filteredAuctions = auctions.filter((auction) =>
+    auction.Title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const handleBidPlaced = (bid) => {
     // Update auctions array with the new bid
@@ -52,7 +54,7 @@ const Auctions = ({ bids, setBids, auctions, setAuctions }) => {
   };
 
   const handleAuctionClick = (auction) => {
-    setSelectedAuction(auction);
+      setSelectedAuction(auction);
   };
 
   return (
@@ -61,17 +63,18 @@ const Auctions = ({ bids, setBids, auctions, setAuctions }) => {
       <div className="h-full flex items-center justify-center">
         <SearchBar
           icon={<AiOutlineSearch size={25} />}
-          auctions={auctions}
-          setFilteredData={setFilteredData}
-          input={input}
-          setInput={setInput}
+          filterAuctions={filterAuctions}
         />
       </div>
       <div className="h-full">
         <h1 className="font-semibold text-4xl px-8 mt-14">Current Auctions</h1>
         <ul className="w-full px-8 flex flex-col mt-10 sm:flex-wrap sm:flex-row item-center gap-14">
-          {filteredData.map((auction) => (
+          {filteredAuctions.map((auction) => (
+            // TODO: När man klickar, fixa så vald auktion kommer under selectedAuction
+            // Städa kanske upp Sebbes fula X också
             <li
+              className={auction.expired ? "expired" : ""}
+              style={{ cursor: "pointer" }}
               key={auction.AuctionID}
               onClick={() => handleAuctionClick(auction)}
             >
@@ -81,8 +84,8 @@ const Auctions = ({ bids, setBids, auctions, setAuctions }) => {
               <p>Start Date: {auction.StartDate}</p>
               <p>End Date: {auction.EndDate}</p>
               <p>Created By: {auction.CreatedBy}</p>
-              <p>Bid: {auction.bud}</p>
-
+              <p>Expired: {auction.expired ? "Yes" : "No"}</p>
+              {/* <p>Bid: {auction.Bidder}</p>
               {bids && bids.length > 0 && (
                 <ul>
                   {bids.map((bid, index) => (
@@ -91,16 +94,26 @@ const Auctions = ({ bids, setBids, auctions, setAuctions }) => {
                     </li>
                   ))}
                 </ul>
-              )}
+              )} */}
             </li>
           ))}
           {selectedAuction && (
-            <BidAuction
-              bids={bids}
-              setBids={setBids}
-              auction={selectedAuction}
-              onBidPlaced={handleBidPlaced}
-            />
+            <>
+              <div>
+                <span
+                  style={{ cursor: "pointer", border: "1px solid gray" }}
+                  onClick={() => setSelectedAuction(null)}
+                >
+                  Close
+                </span>
+                <BidAuction
+                  bids={bids}
+                  setBids={setBids}
+                  auction={selectedAuction}
+                  onBidPlaced={handleBidPlaced}
+                />
+              </div>
+            </>
           )}
         </ul>
       </div>

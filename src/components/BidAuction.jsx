@@ -70,13 +70,10 @@ const BidAuction = ({ auction, onBidPlaced, bids, setBids }) => {
         onBidPlaced(data); // Update parent component with the new bid
         setBidderName("");
         setBidAmount("");
-        setSuccessMessage("Bid placed successfully.");
-        setTimeout(() => {
-          setSuccessMessage("Bid placed successfully.");
-        }, 3000);
+        alert("Bid placed successfully.");
       } else {
         const data = await response.json();
-        setErrorMessage(data.message || "Failed to place bid.");
+        alert(data.message || "Failed to place bid.");
       }
     } catch (error) {
       console.error("Error placing bid:", error);
@@ -93,7 +90,7 @@ const BidAuction = ({ auction, onBidPlaced, bids, setBids }) => {
         }
       );
       if (response.ok) {
-        // Handle successful deletion
+        alert("You have deleted auction!")
       } else {
         const data = await response.json();
         setErrorMessage(data.message || "Failed to delete auction.");
@@ -106,7 +103,7 @@ const BidAuction = ({ auction, onBidPlaced, bids, setBids }) => {
 
   return (
     <div>
-      <h2>Title: {auction.Title}</h2>
+      <h1>{auction.Title}</h1>
       <p>About: {auction.Description}</p>
       <p>Current Bid: {getHighestBid()}</p>
       <p>Bidder: {bidderName}</p>
@@ -132,7 +129,10 @@ const BidAuction = ({ auction, onBidPlaced, bids, setBids }) => {
           step="any"
           required
         />
-        <button type="submit">Place Bid</button>
+        <br />
+        <button style={{ border: "1px solid gray" }} type="submit">
+          Place Bid
+        </button>
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       </form>
       {bids && bids.length > 0 ? (
@@ -147,7 +147,12 @@ const BidAuction = ({ auction, onBidPlaced, bids, setBids }) => {
           </ul>
         </>
       ) : (
-        <button onClick={handleDeleteAuction}>Delete Auction</button>
+        <button
+          style={{ border: "1px solid gray" }}
+          onClick={handleDeleteAuction}
+        >
+          Delete Auction
+        </button>
       )}
     </div>
   );

@@ -62,6 +62,7 @@ const AddAuction = () => {
       <form onSubmit={handleSubmit}>
         <label>Title:</label>
         <input
+          style={{ border: "1px solid gray" }}
           type="text"
           name="Title"
           value={auction.Title}
@@ -71,6 +72,7 @@ const AddAuction = () => {
 
         <label>Description:</label>
         <input
+          style={{ border: "1px solid gray" }}
           type="text"
           name="Description"
           value={auction.Description}
@@ -80,6 +82,7 @@ const AddAuction = () => {
 
         <label>Start Date:</label>
         <input
+          style={{ border: "1px solid gray" }}
           type="datetime-local"
           name="StartDate"
           value={auction.StartDate}
@@ -89,6 +92,7 @@ const AddAuction = () => {
 
         <label>End Date:</label>
         <input
+          style={{ border: "1px solid gray" }}
           type="datetime-local"
           name="EndDate"
           value={auction.EndDate}
@@ -98,6 +102,7 @@ const AddAuction = () => {
 
         <label>Starting Price:</label>
         <input
+          style={{ border: "1px solid gray" }}
           type="number"
           name="StartingPrice"
           value={auction.StartingPrice}
@@ -107,6 +112,7 @@ const AddAuction = () => {
 
         <label>Created By:</label>
         <input
+          style={{ border: "1px solid gray" }}
           type="text"
           name="CreatedBy"
           value={auction.CreatedBy}
@@ -114,7 +120,9 @@ const AddAuction = () => {
           required
         />
 
-        <button type="submit">Add Auction</button>
+        <button style={{ border: "1px solid gray" }} type="submit">
+          Add Auction
+        </button>
       </form>
     </div>
     /*  </Link> */
