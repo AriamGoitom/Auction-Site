@@ -16,17 +16,16 @@ function ClosedAuctions() {
   }, []);
 
   return (
-    <div className="h-full flex items-center justify-center">
-      <h1 className="font-semibold text-4xl px-8 mt-14">Closed Auctions</h1>
-      <ul className="w-full px-8 flex flex-col mt-10 sm:flex-wrap sm:flex-row item-center gap-14">
+    <div className="auctions-container">
+      <h1 className="auctions-header">Recently Closed Auctions</h1>
+      <ul className="auctions-list">
         {closedAuctions.map((auction, index) => (
-          <li key={index}>
-            <h2 className="font-semibold text-2xl">{auction.Title}</h2>
-            <p>Description: {auction.Description}</p>
-            <p>Start Date: {new Date(auction.StartDate).toLocaleString()}</p>
-            <p>End Date: {new Date(auction.EndDate).toLocaleString()}</p>
-            <p>Starting Price: {auction.StartingPrice}</p>
-            <p>Created By: {auction.CreatedBy}</p>
+          <li key={index} className="auction-item">
+            <h2 className="auction-title">{auction.Title}</h2>
+            <p className="auction-description">Description: {auction.Description}</p>
+            <p className="auction-date">End Date: {new Date(auction.EndDate).toLocaleString()}</p>
+            <p className="auction-price">Starting Price: {auction.StartingPrice}</p>
+            <p className="auction-creator">Created By: {auction.CreatedBy}</p>
           </li>
         ))}
       </ul>
