@@ -5,6 +5,7 @@ import AuctionDetails from "./components/AuctionDetails";
 import Navbar from "./components/Navbar";
 // import BidAuction from "./components/BidAuction";
 import AddAuction from "./components/AddAuction";
+import ClosedAuctions from "./components/ClosedAuctions";
 function App() {
   const [auctions, setAuctions] = useState(
     []
@@ -30,6 +31,7 @@ function App() {
           element={<AuctionDetails bids={bids} auctions={auctions} />}
         />
         <Route path="/add" element={<AddAuction />} />
+        <Route path="/completed" element={<ClosedAuctions />} />
       </Routes>
     </>
   );
