@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Auctions from "./components/Auctions";
 import { Route, Routes } from "react-router-dom";
-import AuctionDetails from "./components/AuctionDetails";
+
 import Navbar from "./components/Navbar";
 // import BidAuction from "./components/BidAuction";
 import AddAuction from "./components/AddAuction";
@@ -25,10 +25,6 @@ function App() {
               auctions={auctions}
             />
           }
-        />
-        <Route
-          path="/auktion/:id"
-          element={<AuctionDetails bids={bids} auctions={auctions} />}
         />
         <Route path="/add" element={<AddAuction />} />
         <Route path="/completed" element={<ClosedAuctions />} />

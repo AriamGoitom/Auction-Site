@@ -54,7 +54,7 @@ const Auctions = ({ bids, setBids, auctions, setAuctions }) => {
   };
 
   const handleAuctionClick = (auction) => {
-      setSelectedAuction(auction);
+    setSelectedAuction(auction);
   };
 
   return (
@@ -70,7 +70,6 @@ const Auctions = ({ bids, setBids, auctions, setAuctions }) => {
         <h1 className="font-semibold text-4xl px-8 mt-14">Current Auctions</h1>
         <ul className="w-full px-8 flex flex-col mt-10 sm:flex-wrap sm:flex-row item-center gap-14">
           {filteredAuctions.map((auction) => (
-      
             <li
               className={auction.expired ? "expired" : ""}
               style={{ cursor: "pointer" }}
@@ -88,18 +87,18 @@ const Auctions = ({ bids, setBids, auctions, setAuctions }) => {
           {selectedAuction && (
             <>
               <div>
-                <span
-                  style={{ cursor: "pointer", border: "1px solid gray" }}
-                  onClick={() => setSelectedAuction(null)}
-                >
-                  Close
-                </span>
                 <BidAuction
                   bids={bids}
                   setBids={setBids}
                   auction={selectedAuction}
                   onBidPlaced={handleBidPlaced}
                 />
+                <span
+                  style={{ cursor: "pointer", border: "1px solid gray" }}
+                  onClick={() => setSelectedAuction(null)}
+                >
+                  Close
+                </span>
               </div>
             </>
           )}
