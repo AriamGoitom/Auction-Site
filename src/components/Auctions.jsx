@@ -70,31 +70,19 @@ const Auctions = ({ bids, setBids, auctions, setAuctions }) => {
         <h1 className="font-semibold text-4xl px-8 mt-14">Current Auctions</h1>
         <ul className="w-full px-8 flex flex-col mt-10 sm:flex-wrap sm:flex-row item-center gap-14">
           {filteredAuctions.map((auction) => (
-            // TODO: När man klickar, fixa så vald auktion kommer under selectedAuction
-            // Städa kanske upp Sebbes fula X också
+      
             <li
               className={auction.expired ? "expired" : ""}
               style={{ cursor: "pointer" }}
               key={auction.AuctionID}
               onClick={() => handleAuctionClick(auction)}
             >
-              {/* <Link to={`/auktion/${auction.AuctionID}`} key={auction.AuctionID}> */}
               <h2 className="font-semibold text-2xl">{auction.Title}</h2>
               <p>Pris: {auction.StartingPrice}</p>
               <p>Start Date: {auction.StartDate}</p>
               <p>End Date: {auction.EndDate}</p>
               <p>Created By: {auction.CreatedBy}</p>
               <p>Expired: {auction.expired ? "Yes" : "No"}</p>
-              {/* <p>Bid: {auction.Bidder}</p>
-              {bids && bids.length > 0 && (
-                <ul>
-                  {bids.map((bid, index) => (
-                    <li key={index}>
-                      Bid {index + 1}: {bid.amount}
-                    </li>
-                  ))}
-                </ul>
-              )} */}
             </li>
           ))}
           {selectedAuction && (
