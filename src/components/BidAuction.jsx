@@ -90,7 +90,7 @@ const BidAuction = ({ auction, onBidPlaced, bids, setBids }) => {
         }
       );
       if (response.ok) {
-        alert("You have deleted auction!")
+        alert("You have deleted auction!");
       } else {
         const data = await response.json();
         setErrorMessage(data.message || "Failed to delete auction.");
@@ -102,11 +102,12 @@ const BidAuction = ({ auction, onBidPlaced, bids, setBids }) => {
   };
 
   return (
-    <div>
-      <h1>{auction.Title}</h1>
+    <div className="h-full">
+      <h1>
+        <strong>{auction.Title}</strong>
+      </h1>
       <p>About: {auction.Description}</p>
       <p>Current Bid: {getHighestBid()}</p>
-      <p>Bidder: {bidderName}</p>
       <form onSubmit={handleBidSubmit}>
         <label htmlFor="bidAmount">Your Bid:</label>
         <br />
@@ -120,6 +121,7 @@ const BidAuction = ({ auction, onBidPlaced, bids, setBids }) => {
           required
         />
         <br />
+        <label>Place your bid:</label>
         <input
           style={{ border: "1px solid gray" }}
           type="number"
@@ -130,14 +132,18 @@ const BidAuction = ({ auction, onBidPlaced, bids, setBids }) => {
           required
         />
         <br />
+        <br />
         <button style={{ border: "1px solid gray" }} type="submit">
           Place Bid
         </button>
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       </form>
+      <br />
       {bids && bids.length > 0 ? (
         <>
-          <h1>Budhistorik:</h1>
+          <h1>
+            <strong>Budhistorik:</strong>
+          </h1>
           <ul>
             {bids.map((bid, index) => (
               <li key={index}>
@@ -159,82 +165,3 @@ const BidAuction = ({ auction, onBidPlaced, bids, setBids }) => {
 };
 
 export default BidAuction;
-
-/* import React, { useState } from "react";
-
-const BidAuction = (auction) => {
-  const [bid, setBid] = useState({
-    Bidder: "",
-    AuctionID: "",
-    Amount: 500,
-    GroupCode: "l6m",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setBid((prevBid) => ({
-      ...prevBid,
-      [name]: value,
-    }));
-  };
-
-  const handleBid = async (e) => {
-    e.preventDefault();
-    if (!bid.Bidder) {
-      alert("Please enter your name before placing a bid.");
-      return;
-    }
-    try {
-      const response = await fetch(
-        "https://auctioneer.azurewebsites.net/bid/l6m/41",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(bid),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to place bid");
-      }
-
-      setBid({
-        Bidder: "",
-        AuctionID: "",
-        Amount: 500,
-        GroupCode: "l6m",
-      });
-
-      const data = await response.json();
-      console.log("Bid placed successfully:", data);
-      alert("Bid placed successfully!");
-    } catch (error) {
-      console.error("Error:", error.message);
-      alert("Failed to place bid");
-    }
-  };
-
-  return (
-    <div>
-      <h2>Title: {auction.Title}</h2>
-      <h2>Place Bid</h2>
-      <form onSubmit={handleBid}>
-        <label>Bidder Name:</label>
-        <input
-          type="text"
-          name="Bidder"
-          value={bid.Bidder}
-          onChange={handleChange}
-          required
-        />
-
-        <button type="submit">Place Bid with $500</button>
-      </form>
-    </div>
-  );
-};
-
-export default BidAuction;
- */
